@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RB-Develop/angular-2-start-deluxe.git"
+    "url": "https://github.com/RB-Develop/angular-2-starter-deluxe.git"
   },
   "bugs": {
-    "url": "https://github.com/RB-Develop/angular-2-start-deluxe/issues"
+    "url": "https://github.com/RB-Develop/angular-2-starter-deluxe/issues"
   },
   "license": "MIT",
   "dependencies": {
