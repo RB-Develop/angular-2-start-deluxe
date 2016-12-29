@@ -1,0 +1,12 @@
+.tmp/
+.vscode/
+.editorconfig
+coverage/
+dist/
+node_modules/
+typings/*
+
+reports
+test-reports
+target/*
+docs/
