@@ -12,9 +12,9 @@ the following dependencies:
 
 ## Note
 This project uses Gulp 4.0 even though it is not yet officially released at the time of creating this repository. To work around this
-the `gulp4` dependency is used in the `package.json`. You will have to create a softlink in the `node_modules` folder from gulp to gulp4
+the `gulp4` dependency is used in the `package.json`. You will have to create a softlink in the `node_modules` folder from `gulp` to `gulp4`
 so that the `gulp-cli` can use Gulp 4.0. See below for instructions on how to achieve this.
-    
+
     # Execute from the node_modules folder
     # Linux command
     ln -s gulp4 gulp
