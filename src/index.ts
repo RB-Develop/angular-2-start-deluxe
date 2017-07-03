@@ -1,9 +1,8 @@
-/// <reference path="../typings/index.d.ts"/>
 /**
  * Index file that initiates the bootstrapping
  * of the application and sets it to production
  * mode if the environment is production.
- * 
+ *
  * @module AppModule
  */ /** */
 import 'core-js/client/shim';

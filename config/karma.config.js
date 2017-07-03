@@ -7,7 +7,7 @@ module.exports = function (config) {
     autoWatch: false,
     logLevel: config.LOG_INFO,
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
     frameworks: [
       'jasmine',
@@ -37,6 +37,9 @@ module.exports = function (config) {
       'json': './reports/coverage/coverage.json',
       'html': './reports/coverage/html',
       'cobertura': './reports/coverage/cobertura.xml'
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
     },
     junitReporter: {
       outputDir: 'reports/junit'

@@ -1,7 +1,7 @@
 /**
  * Import wrapper for RxJS operations that
  * are regularly used.
- * 
+ *
  * @module AppModule
  */ /** */
 // Static

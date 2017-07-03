@@ -4,55 +4,75 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
 module.exports = {
   module: {
-    preLoaders: [{
+    rules: [{
+      enforce: 'pre',
       test: /\.ts$/,
       exclude: /node_modules/,
-      loader: 'tslint'
-    }],
-
-    loaders: [{
+      use: {
+        loader: 'tslint-loader',
+        options: {
+          configuration: require('../tslint.json'),
+          formatter: 'checkstyle',
+          fileOutput: {
+            dir: './reports/checkstyle/',
+            ext: 'xml',
+            clean: true
+          }
+        }
+      }
+    }, {
       test: /.json$/,
-      loaders: [
-        'json'
+      use: [
+        'json-loader'
       ]
     }, {
       test: /\.(css|scss)$/,
-      loaders: ExtractTextPlugin.extract({
-        fallbackLoader: 'style',
-        loader: 'css?minimize!sass!postcss'
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          'css-loader?minimize!sass-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [require('autoprefixer')()]
+            }
+          }
+        ]
       })
     }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/font-woff'
+      use: 'url-loader?limit=10000&mimetype=application/font-woff'
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/octet-stream'
+      use: 'url-loader?limit=10000&mimetype=application/octet-stream'
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=image/svg+xml'
+      use: 'url-loader?limit=10000&mimetype=image/svg+xml'
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file'
+      use: 'file-loader'
     }, {
       test: /\.ts$/,
       exclude: /node_modules/,
-      loaders: [
-        'ts'
-      ]
+      use: {
+        loader: 'ts-loader',
+        options: {
+          configFileName: 'tsconfig.json'
+        }
+      }
     }, {
       test: /.html$/,
-      loaders: [
-        'html'
+      use: [
+        'html-loader'
       ]
     }]
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: conf.path.src('index.ejs'),
       baseUrl: '/ui/'
@@ -68,7 +88,8 @@ module.exports = {
       'jQuery': 'jquery',
       '$': 'jquery',
       'window.jQuery': 'jquery',
-      'window.Tether': 'tether'
+      'window.Tether': 'tether',
+      'Tether': 'tether'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -82,14 +103,12 @@ module.exports = {
       name: 'vendor'
     })
   ],
-  postcss: () => [autoprefixer],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
     filename: '[name]-[hash].js'
   },
   resolve: {
     extensions: [
-      '',
       '.webpack.js',
       '.web.js',
       '.js',
@@ -99,17 +118,5 @@ module.exports = {
   entry: {
     app: `./${conf.path.src('index')}`,
     vendor: ['jquery', 'tether', 'bootstrap']
-  },
-  ts: {
-    configFileName: 'tsconfig.json'
-  },
-  tslint: {
-    configuration: require('../tslint.json'),
-    formatter: "checkstyle",
-    fileOutput: {
-      dir: "./reports/checkstyle/",
-      ext: "xml",
-      clean: true
-    }
   }
 };

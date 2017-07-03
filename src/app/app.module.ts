@@ -1,7 +1,7 @@
 /**
  * Central module that handles imports, declarations,
  * providers, and bootstrapping of the application.
- * 
+ *
  * @module AppModule
  * @preferred
  */ /** */

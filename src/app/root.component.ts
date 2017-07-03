@@ -1,7 +1,7 @@
 /**
  * The root component of the application. This will be
  * loaded first and contains the router outlet.
- * 
+ *
  * @module AppModule
  */ /** */
 import { Component } from '@angular/core';

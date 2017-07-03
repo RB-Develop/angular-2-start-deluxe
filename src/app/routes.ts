@@ -1,6 +1,6 @@
 /**
  * Defines all routing for the application.
- * 
+ *
  * @module AppModule
  */ /** */
 import { RouterModule, Routes } from '@angular/router';

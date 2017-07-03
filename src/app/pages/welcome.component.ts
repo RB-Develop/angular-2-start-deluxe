@@ -1,7 +1,7 @@
 /**
  * Component of the welcome page. Contains
  * a configurable title that is shown on the page.
- * 
+ *
  * @module PagesBarrel
  */ /** */
 import { Component, OnInit } from '@angular/core';
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 /**
  * The welcome component handles the value of the title
  * on the welcome page. It also contains secret information!
- * 
+ *
  * @author René Bulsing
  */
 @Component({

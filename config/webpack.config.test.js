@@ -1,72 +1,74 @@
 const webpack = require('webpack');
 const conf = require('./gulp.config');
-const path = require('path');
 
 module.exports = {
-  debug: true,
   devtool: 'inline-source-map',
 
   resolve: {
     extensions: [
-      '',
       '.webpack.js',
       '.web.js',
       '.js',
       '.ts'
     ],
-    modulesDirectories: [
+    modules: [
       'node_modules',
       'src'
     ]
   },
 
   module: {
-    loaders: [{
+    rules: [{
       test: /.json$/,
-      loaders: [
-        'json'
+      use: [
+        'json-loader'
       ]
     }, {
       test: /\.(css|scss)$/,
-      loaders: [
-        'style',
-        'css',
-        'sass',
-        'postcss'
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader',
+        'postcss-loader'
       ]
     }, {
       test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/font-woff'
+      use: 'url-loader?limit=10000&mimetype=application/font-woff'
     }, {
       test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=application/octet-stream'
+      use: 'url-loader?limit=10000&mimetype=application/octet-stream'
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'url?limit=10000&mimetype=image/svg+xml'
+      use: 'url-loader?limit=10000&mimetype=image/svg+xml'
     }, {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file'
+      use: 'file-loader'
     }, {
       test: /\.ts$/,
       exclude: /node_modules/,
-      loaders: [
-        'ts'
-      ]
+      use: {
+        loader: 'ts-loader',
+        options: {
+          configFileName: 'tsconfig.json'
+        }
+      }
     }, {
       test: /.html$/,
-      loaders: [
-        'html'
+      use: [
+        'html-loader'
       ]
-    }],
-    postLoaders: [{
+    }, {
+      enforce: 'post',
       test: /\.(ts|js)$/,
-      loader: 'istanbul-instrumenter',
       exclude: [
         /node_modules/,
         /\.(e2e|spec)\.ts$/
       ],
-      query: {
-        esModules: true
+      use: {
+        loader: 'istanbul-instrumenter-loader',
+        options: {
+          esModules: true
+        }
       }
     }]
   },
@@ -79,10 +81,9 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: null, // if no value is provided the sourcemap is inlined
       test: /\.(ts|js)($|\?)/ // process .js and .ts files only
+    }),
+    new webpack.LoaderOptionsPlugin({
+      debug: true
     })
-  ],
-
-  ts: {
-    configFileName: 'tsconfig.json'
-  }
+  ]
 };
