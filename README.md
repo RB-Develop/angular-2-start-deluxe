@@ -1,5 +1,5 @@
-# Angular 2 Starter Deluxe
-A starter project for a complete Angular 2 project that uses Bootstrap 4 and Font Awesome for the styling of the web app. Also has 
+# Angular Starter Deluxe
+A starter project for a complete Angular project that uses Bootstrap 4 and Font Awesome for the styling of the web app. Also has 
 the following dependencies:
 
  - WebPack for transpiling TypeScript and bundling other resources.
